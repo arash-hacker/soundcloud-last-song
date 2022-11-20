@@ -2,11 +2,11 @@ const path = require('path')
 export default async function handler(req, res) {
   let r = await fetch('https://api-v2.soundcloud.com/users/159130288/likes?client_id=8m4K5d2x4mNmUHLhLmsGq9vxE3dDkxCm&limit=24&offset=0&linked_partitioning=1&app_version=1668781563&app_locale=en')
   r = await r.json();
-  const randomNumber = Math.floor(Math.random() * 10)
-  const song = r.collection[randomNumber].track
-  const picUrl = song.artwork_url || song.user.avatar_url
-  const b64 = (await (await fetch(picUrl)).buffer()).toString('base64')
-  const pic = `data:image/${path.extname(picUrl).substring(1)};base64,` + b64
+  const randomNumber = Math.floor(Math.random() * 10);
+  const song = r.collection[randomNumber].track;
+  const picUrl = song.artwork_url || song.user.avatar_url;
+  const b64 = (await (await fetch(picUrl)).buffer()).toString('base64');
+  const pic = `data:image/${path.extname(picUrl).substring(1)};base64,` + b64;
   res.setHeader('Content-Type', 'image/svg+xml');
   let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300px" height="446px">
   <style>html,body{padding:0;margin:0;background:'#ff4201';overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,SegoeUI,Roboto,Oxygen,Ubuntu,Cantarell,FiraSans,DroidSans,HelveticaNeue,sans-serif;}a{color:inherit;text-decoration:none;}*{box-sizing:border-box;}@media(prefers-color-scheme:dark){html{color-scheme:dark;}body{color:white;background:black;}}svg{font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:21px;animation:fade-inease-in-out2s;}@keyframesfade-in{from{opacity:0%;}to{opacity:100%;}}img{height:100%;width:100%;border-radius:8px;box-shadow:0px4px20px4pxrgba(0,0,0,0.25);/*box-shadow:0px4px80px20pxrgba(0,0,0,0.25);*//*box-shadow:0px4px10px6pxrgba(0,0,0,0.25);*/}hr{color:white;}.bar{margin-top:18px;margin-bottom:24px;display:flex;align-items:center;border-radius:40px;height:2px;background-color:rgba(188,188,188,1);}.meter{height:4px;border-radius:40px;background-color:white;animation:progressBar60slinear;animation-fill-mode:forwards;}@keyframesprogressBar{from{width:0%;}to{width:100%;}}.background{width:calc(100%);height:calc(100%);fill:rgba(53,71,99,1);rx:8px;ry:8px;}.container{display:flex;flex-direction:column;padding:12px20px20px20px;}.details-column{display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;}.fader-right{/*right:0;*/background:linear-gradient(toleft,rgba(188,188,188,1),rgba(188,188,188,0));}.title{color:white;font-size:20px;font-weight:700;letter-spacing:0.4px;white-space:nowrap;/*animation:text-scrollinfinitelinear20s;*/}.artist{color:white;margin-top:4px;font-size:14px;font-weight:600;letter-spacing:0.2px;white-space:nowrap;/*animation:text-scrollinfinitelinear20s;*/margin-top:6px;}.subtitle{color:white;font-size:14px;font-weight:500;letter-spacing:0.2px;white-space:nowrap;/*animation:text-scrollinfinitelinear20s;*/margin-top:2px;}@keyframestext-scroll{0%{transform:translateX(130%);}33%{transform:translateX(0%);}66%{transform:translateX(0%);}100%{transform:translateX(-130%);}}.row{display:flex;flex-direction:row;justify-content:center;align-items:center;gap:14px;margin-bottom:12px;}</style>
