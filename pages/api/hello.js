@@ -10,7 +10,17 @@ export default async function handler(req, res) {
   const pic = `data:image/${path.extname(picUrl).substring(1)};base64,` + b64;
   res.setHeader('Content-Type', 'image/svg+xml');
   let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300px" height="446px">
-  <style>html,body{padding:0;margin:0;background:'#ff4201';overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,SegoeUI,Roboto,Oxygen,Ubuntu,Cantarell,FiraSans,DroidSans,HelveticaNeue,sans-serif;}a{color:inherit;text-decoration:none;}*{box-sizing:border-box;}@media(prefers-color-scheme:dark){html{color-scheme:dark;}body{color:white;background:black;}}svg{font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:21px;animation:fade-inease-in-out2s;}@keyframesfade-in{from{opacity:0%;}to{opacity:100%;}}img{height:100%;width:100%;border-radius:8px;box-shadow:0px4px20px4pxrgba(0,0,0,0.25);/*box-shadow:0px4px80px20pxrgba(0,0,0,0.25);*//*box-shadow:0px4px10px6pxrgba(0,0,0,0.25);*/}hr{color:white;}.bar{margin-top:18px;margin-bottom:24px;display:flex;align-items:center;border-radius:40px;height:2px;background-color:rgba(188,188,188,1);}.meter{height:4px;border-radius:40px;background-color:white;animation:progressBar60slinear;animation-fill-mode:forwards;}@keyframesprogressBar{from{width:0%;}to{width:100%;}}.background{width:calc(100%);height:calc(100%);fill:rgba(53,71,99,1);rx:8px;ry:8px;}.container{display:flex;flex-direction:column;padding:12px20px20px20px;}.details-column{display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;}.fader-right{/*right:0;*/background:linear-gradient(toleft,rgba(188,188,188,1),rgba(188,188,188,0));}.title{color:white;font-size:20px;font-weight:700;letter-spacing:0.4px;white-space:nowrap;/*animation:text-scrollinfinitelinear20s;*/}.artist{color:white;margin-top:4px;font-size:14px;font-weight:600;letter-spacing:0.2px;white-space:nowrap;/*animation:text-scrollinfinitelinear20s;*/margin-top:6px;}.subtitle{color:white;font-size:14px;font-weight:500;letter-spacing:0.2px;white-space:nowrap;/*animation:text-scrollinfinitelinear20s;*/margin-top:2px;}@keyframestext-scroll{0%{transform:translateX(130%);}33%{transform:translateX(0%);}66%{transform:translateX(0%);}100%{transform:translateX(-130%);}}.row{display:flex;flex-direction:row;justify-content:center;align-items:center;gap:14px;margin-bottom:12px;}</style>
+              <style>html,body{padding:0;margin:0;background:'#ff4201';overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,SegoeUI,Roboto,Oxygen,Ubuntu,Cantarell,FiraSans,DroidSans,HelveticaNeue,sans-serif;}a{color:inherit;text-decoration:none;}*{box-sizing:border-box;}@media(prefers-color-scheme:dark){html{color-scheme:dark;}body{color:white;background:black;}}svg{font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:21px;animation:fade-inease-in-out2s;}@keyframesfade-in{from{opacity:0%;}to{opacity:100%;}}img{height:100%;width:100%;border-radius:8px;box-shadow:0px4px20px4pxrgba(0,0,0,0.25);/*box-shadow:0px4px80px20pxrgba(0,0,0,0.25);*//*box-shadow:0px4px10px6pxrgba(0,0,0,0.25);*/}hr{color:white;}.bar{margin-top:18px;margin-bottom:24px;display:flex;align-items:center;border-radius:40px;height:2px;background-color:rgba(188,188,188,1);}.meter{height:4px;border-radius:40px;background-color:white;animation:progressBar60slinear;animation-fill-mode:forwards;}@keyframesprogressBar{from{width:0%;}to{width:100%;}}.background{width:calc(100%);height:calc(100%);fill:rgba(53,71,99,1);rx:8px;ry:8px;}.container{display:flex;flex-direction:column;padding:12px20px20px20px;}.details-column{display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;}.fader-right{/*right:0;*/background:linear-gradient(toleft,rgba(188,188,188,1),rgba(188,188,188,0));}.title{color:white;font-size:20px;font-weight:700;letter-spacing:0.4px;white-space:nowrap;/*animation:text-scrollinfinitelinear20s;*/}.artist{color:white;margin-top:4px;font-size:14px;font-weight:600;letter-spacing:0.2px;white-space:nowrap;/*animation:text-scrollinfinitelinear20s;*/margin-top:6px;}.subtitle{color:white;font-size:14px;font-weight:500;letter-spacing:0.2px;white-space:nowrap;/*animation:text-scrollinfinitelinear20s;*/margin-top:2px;}@keyframestext-scroll{0%{transform:translateX(130%);}33%{transform:translateX(0%);}66%{transform:translateX(0%);}100%{transform:translateX(-130%);}}.row{display:flex;flex-direction:row;justify-content:center;align-items:center;gap:14px;margin-bottom:12px;}</style>
+              <style>
+              .commentary {
+                font-family:Roboto-Regular;
+                font-size:25px;
+                float:left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space:nowrap;
+              }
+              </style>
         <g>
           <rect class="background" />
           <g>
@@ -29,8 +39,27 @@ export default async function handler(req, res) {
                 </div>
 
                 <div class="details-column" style="align-items:center">
-                   <marqueue class="title right">${song.title}</marqueue>
-                  <marqueue class="artist">${song.user.full_name}</marqueue>
+                
+                <marquee scrolldelay="90"  behavior="scroll" direction="left">
+                  <div style="padding-top:10px;">
+                    <div style="white-space:nowrap; width:90%">
+                    <span class="commentary title">
+                    ${song.title}
+                    </span>
+                    </div>
+                  </div>
+                </marquee>
+
+                <marquee scrolldelay="90"  behavior="scroll" direction="left">
+                  <div style="padding-top:10px;">
+                    <div style="white-space:nowrap; width:90%">
+                    <span class="commentary artist">
+                    ${song.user.full_name}
+                    </span>
+                    </div>
+                  </div>
+                </marquee>
+
                 </div>
               </div>
             </foreignObject>
