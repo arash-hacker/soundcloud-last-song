@@ -5,7 +5,8 @@ export default async function handler(req, res) {
   const randomNumber = Math.floor(Math.random() * 10);
   const song = r.collection[randomNumber].track;
   const picUrl = song.artwork_url || song.user.avatar_url;
-  const b64 = (await (await fetch(picUrl)).buffer()).toString('base64');
+  let ab = (await (await fetch(picUrl)).arrayBuffer());
+  let b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(ab)));
   const pic = `data:image/${path.extname(picUrl).substring(1)};base64,` + b64;
   res.setHeader('Content-Type', 'image/svg+xml');
   let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300px" height="446px">
